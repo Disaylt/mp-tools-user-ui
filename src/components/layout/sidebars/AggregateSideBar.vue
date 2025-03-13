@@ -1,5 +1,12 @@
 <template>
     <div>{{ name }}</div>
+    <div>{{ name }}</div>
+    <div>{{ name }}</div>
+    <div>{{ name }}</div>
+    <div>{{ name }}</div>
+    <div>{{ name }}</div>
+    <div>{{ name }}</div>
+    <div>{{ name }}</div>
 </template>
 
 <script setup lang="ts">

@@ -4,7 +4,7 @@
     </div>
     <div class="main flex flex-row flex-wrap">
         <div v-if="sideBarStore.isShowStatic && mainCategoryStore.selectedValue !== null" 
-        class="side-bar hidden md:block fadeinleft animation-duration-100 overflow-auto main p-2">
+        class="side-bar hidden md:block overflow-auto main p-2 transition-opacity duration-300 ease-in">
             <div class="border-round-xl">
                 <SideBar></SideBar>
             </div>
@@ -13,21 +13,22 @@
             <div class="body p-2">
                 <RouterView />
             </div>
-            <div class="footer">
-                <router-link to="/login">Home</router-link>
+            <div class="footer mx-2 border-t-1 border-x-1 app-light-border card-bg rounded-t-lg">
+                <Footer></Footer>
             </div>
         </div>
     </div>
     <Drawer v-model:visible="sideBarStore.isShowDraw" header="Меню">
-        <SideBar></SideBar>
+        <component :is="mainCategoryStore.selectedValue?.component"></component>
     </Drawer>
 </template>
 
 <script setup lang="ts">
-import { useMainCategoryStore } from '../store/main-category.store';
-import { useSideBarStore } from '../store/side-bar.store';
+import { useMainCategoryStore } from '../store/layout/main-category.store';
+import { useSideBarStore } from '../store/layout/side-bar.store';
 import Header from './layout/Header.vue'
 import SideBar from './layout/SideBar.vue';
+import Footer from './layout/Footer.vue';
 
 const sideBarStore = useSideBarStore();
 const mainCategoryStore = useMainCategoryStore();
@@ -37,10 +38,6 @@ const mainCategoryStore = useMainCategoryStore();
 <style lang="scss">
 .body {
     min-height: calc(100vh - 110px);
-}
-
-.header {
-    height: 60px;
 }
 
 .footer {

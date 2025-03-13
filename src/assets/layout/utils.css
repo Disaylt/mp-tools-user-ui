@@ -1,0 +1,11 @@
+.card-bg {
+    background: var(--surface-card);
+}
+
+.app-border{
+    border-color: var(--border-color);
+}
+
+.app-light-border{
+    border-color: var(--border-light-color);
+}

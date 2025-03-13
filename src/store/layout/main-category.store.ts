@@ -1,9 +1,9 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import type { MainCategoryView } from '../models/category.model'
+import type { ProviderView } from '../../models/layout/provider.model'
 
 export const useMainCategoryStore = defineStore("mainCategory", {
     state: () => ({
-        selectedValue : null as MainCategoryView | null,
+        selectedValue : null as ProviderView | null,
     }),
     actions: {
     }

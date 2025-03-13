@@ -1,5 +1,5 @@
 <template>
-    <div class="header flex flex-row px-2 border-b-1 border-slate-300 app-dark:border-slate-600">
+    <div class="header card-bg flex flex-row px-2 border-b-1 app-border">
         <div class="flex items-center gap-1" style="width: 230px;">
             <div class="flex-none">
                 <Button :disabled="mainCategoryStore.selectedValue === null" 
@@ -10,11 +10,22 @@
                 severity="secondary"
                 size="large" />
             </div>
-            <FloatLabel class="w-full md:w-56" variant="on">
-                <Select :fluid="true" v-model="mainCategoryStore.selectedValue" :options="categories" optionLabel="name"
-                style="max-width: 200px;" 
-                :overlay-style="{ 'max-width' : '100vw'}" />
-                <label for="on_label">Категория</label>
+            <FloatLabel variant="on">
+                <Select v-model="mainCategoryStore.selectedValue" :options="categories" 
+                optionLabel="name" 
+                optionGroupLabel="name" 
+                optionGroupChildren="providers" 
+                class="w-full md:w-56" 
+                style="max-width: 200px;"
+                :overlay-style="{ 'max-width' : '100vw'}"
+                >
+                    <template #optiongroup="slotProps">
+                        <div class="flex items-center">
+                            <div>{{ slotProps.option.name }}</div>
+                        </div>
+                    </template>
+                </Select>
+                <label for="on_label">{{ mainCategoryStore.selectedValue ? mainCategoryStore.selectedValue.categoryView : "Провайдеры" }}</label>
             </FloatLabel>
         </div>
         <div class="flex flex-grow-1 flex flex-row-reverse items-center gap-1">
@@ -54,13 +65,13 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { useMainCategoryStore } from '../../store/main-category.store';
+import { useMainCategoryStore } from '../../store/layout/main-category.store';
 import type { PopoverMethods } from 'primevue';
 import { computed, ref } from 'vue';
-import { useSideBarStore } from '../../store/side-bar.store';
-import type { MainCategoryView } from '../../models/category.model';
-import mainCategoryService from '../../services/main-category.service';
-import { useApplicationDarkModeStore } from '../../store/application-dark-model.store';
+import { useSideBarStore } from '../../store/layout/side-bar.store';
+import mainCategoryService from '../../services/layout/category.service';
+import { useApplicationDarkModeStore } from '../../store/layout/application-dark-model.store';
+import type { CategoryView } from '../../models/layout/category.model';
 
 const router = useRouter();
 const mainCategoryStore = useMainCategoryStore();
@@ -68,7 +79,7 @@ const sideBarStore = useSideBarStore();
 const applicationDarkModeStore = useApplicationDarkModeStore();
 
 const smallMenu = ref<PopoverMethods | null>(null);
-const categories = ref<MainCategoryView[]>(mainCategoryService.getCategories());
+const categories = ref<CategoryView[]>(mainCategoryService.getCategories());
 const money = ref<number>(0);
 
 const getMoneyAsCurrencyString  = computed(() => {
@@ -91,7 +102,8 @@ const pushToProfile = () => {
   width: 250px;
 }
 
-.header{
-    background: var(--surface-card);
+.header {
+    height: 60px;
 }
+
 </style>

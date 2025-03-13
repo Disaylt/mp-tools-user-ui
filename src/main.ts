@@ -5,7 +5,7 @@ import { createPinia } from 'pinia';
 import route from './route/route';
 import PrimeVue from 'primevue/config';
 import primeVueComponentManager from './presets/PrimeVueComponentManager';
-import Aura from '@primeuix/themes/aura'
+import theme from './presets/theme';
 
 const app = createApp(App);
 
@@ -14,7 +14,7 @@ app.use(createPinia());
 app.use(route);
 app.use(PrimeVue, {
         theme: {
-            preset: Aura,
+            preset: theme,
             ripple: true,
             options: {
                 prefix: 'p',
