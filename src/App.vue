@@ -11,9 +11,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="">
-    <RouterView />
-  </div>
+  <RouterView />
 </template>
 
 <style scoped>

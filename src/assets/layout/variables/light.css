@@ -1,5 +1,5 @@
 :root {
-    --surface-ground: linear-gradient(180deg, #f2f5fbd4 0%, rgba(43, 30, 189, 0.12) 111.26%);
+    --surface-ground: linear-gradient(180deg, #effdff 0%, rgba(27, 96, 85, 0.37) 111.26%);
     --code-background: var(--p-surface-900);
     --code-color: var(--p-surface-200);
     --border-color: var(--color-slate-300); 

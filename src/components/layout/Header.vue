@@ -10,23 +10,23 @@
                 severity="secondary"
                 size="large" />
             </div>
-            <FloatLabel variant="on">
-                <Select v-model="mainCategoryStore.selectedValue" :options="categories" 
-                optionLabel="name" 
-                optionGroupLabel="name" 
-                optionGroupChildren="providers" 
-                class="w-full md:w-56" 
-                style="max-width: 200px;"
-                :overlay-style="{ 'max-width' : '100vw'}"
-                >
-                    <template #optiongroup="slotProps">
-                        <div class="flex items-center">
-                            <div>{{ slotProps.option.name }}</div>
-                        </div>
-                    </template>
-                </Select>
-                <label for="on_label">{{ mainCategoryStore.selectedValue ? mainCategoryStore.selectedValue.categoryView : "Провайдеры" }}</label>
-            </FloatLabel>
+            <div class="grow">
+                <FloatLabel variant="on">
+                    <Select v-model="mainCategoryStore.selectedValue" :options="categories" 
+                    optionLabel="name" 
+                    optionGroupLabel="name" 
+                    optionGroupChildren="providers" 
+                    class="w-full"
+                    :overlay-style="{ 'max-width' : '100vw'}">
+                        <template #optiongroup="slotProps">
+                            <div class="flex items-center">
+                                <div>{{ slotProps.option.name }}</div>
+                            </div>
+                        </template>
+                    </Select>
+                    <label for="on_label">{{ mainCategoryStore.selectedValue ? mainCategoryStore.selectedValue.categoryView : "Провайдеры" }}</label>
+                </FloatLabel>
+            </div>
         </div>
         <div class="flex flex-grow-1 flex flex-row-reverse items-center gap-1">
             <div class="hidden md:block">
