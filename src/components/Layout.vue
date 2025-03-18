@@ -11,7 +11,7 @@
         </div>
         <div class="flex-grow-1 main overflow-auto">
             <div class="body p-2">
-                <div v-for="n in 50" class="my-3">{{ n }}</div>
+                <div v-for="n in 5" class="my-3">{{ n }}</div>
                 <RouterView />
             </div>
             <div class="footer mx-2 border-t-1 border-x-1 app-light-border card-bg rounded-t-lg">

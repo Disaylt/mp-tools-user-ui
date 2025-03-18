@@ -1,5 +1,7 @@
 <template>
- <div class="">
+ <div class="flex flex-col">
+    <RouterLink to="/auth/login">Login</RouterLink>
+    <RouterLink to="/auth/register">Register</RouterLink>
  </div>
 </template>
 

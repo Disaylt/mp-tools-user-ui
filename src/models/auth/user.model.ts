@@ -30,7 +30,7 @@ export interface Login{
 
 export interface NewAuthDetails{
     refreshToken : string;
-    categoryId : number | null;
+    providerType : number | null;
     providerId : number | null;
 }
 

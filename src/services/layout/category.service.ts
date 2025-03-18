@@ -14,40 +14,34 @@ class MainCategoryService implements IMainCategoryService{
     getCategories(): CategoryView[] {
         return[
             {
-                id : 1,
                 name : "Маркетплейсы",
                 providers : [
                     {
                         id : 1,
                         name : "Агрегатор",
-                        categoryId : 1,
                         categoryView : "Маркетплейс",
                         component : markRaw(AggregateSideBar)
                     },
                     {
                         id : 2,
                         name : "WB",
-                        categoryId : 1,
                         categoryView : "Маркетплейс",
                         component : markRaw(WbSideBar)
                     },
                     {
                         id : 3,
                         name : "OZON",
-                        categoryId : 1,
                         categoryView : "Маркетплейс",
                         component : markRaw(OzonSideBar)
                     }
                 ]
             },
             {
-                id : 2,
                 name : "Мессенджеры",
                 providers : [
                     {
-                        id : 1,
+                        id : 4,
                         name : "Telegram",
-                        categoryId : 2,
                         categoryView : "Мессенджер",
                         component : markRaw(TelegramSideBar)
                     }

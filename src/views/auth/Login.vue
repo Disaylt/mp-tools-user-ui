@@ -22,10 +22,9 @@ import type { AxiosError } from "axios";
 import type { Login, LoginErrorMessages } from "../../models/auth/user.model";
 import type { ParamHttpErrorBody } from "../../models/common/http-request.model";
 import userService from "../../services/auth/user.service";
-import { useUserStore } from "../../store/auth/user.store";
+import authSrvice from "../../services/auth/auth.srvice";
 
 const router = useRouter();
-const userStorage = useUserStore();
 
 const isLoad = ref(false);
 const isLoadLoginButton = ref(false);
@@ -41,29 +40,36 @@ const data = ref<Login>({
 const login = async () => {
     isLoadLoginButton.value = true;
 
-    try {
-        const resp = await userService.login(data.value);
-        userStorage.set(resp.data.identityDetails);
+    await userService.login(data.value)
+    .then((resp) => {
+        authSrvice.addTokens(resp.data.authDetails);
         router.push("/panel");
-    } catch (error) {
+    })
+    .catch((error) => {
         const axiosError = error as AxiosError<ParamHttpErrorBody<LoginErrorMessages>>;
         if (axiosError.response) {
             errors.value.email = axiosError.response.data.errors.Email;
             errors.value.password = axiosError.response.data.errors.Password;
         }
-    } finally {
+    })
+    .finally(() => {
         isLoadLoginButton.value = false;
-    }
+    })
 };
 
-const loadUserDetails = async () => {
-    try {
-        const response = await userService.getInfo();
-        userStorage.set(response.data);
-        router.push("/panel");
-    } catch (_er) {
+const tryRefreshToken = async () => {
+    isLoad.value = true;
 
-    }
+    await authSrvice.refreshTokens()
+        .then(() => {
+            router.push("/panel");
+        })
+        .catch(() => {
+            
+        })
+        .finally(() => {
+            isLoad.value = false;
+        })
 };
 
 const clearEmailErrors = () => {
@@ -75,9 +81,7 @@ const clearPasswordErrors = () => {
 };
 
 onMounted(async () => {
-    isLoad.value = true;
-    await loadUserDetails();
-    isLoad.value = false;
+    await tryRefreshToken();
 });
 
 </script>

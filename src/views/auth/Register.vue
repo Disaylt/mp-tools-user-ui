@@ -37,10 +37,9 @@ import type { AxiosError } from "axios";
 import type { NewUser, RegisterErrorMessages } from "../../models/auth/user.model";
 import userService from "../../services/auth/user.service";
 import type { ParamHttpErrorBody } from "../../models/common/http-request.model";
-import { useUserStore } from "../../store/auth/user.store";
+import authSrvice from "../../services/auth/auth.srvice";
 
 const router = useRouter();
-const userStore = useUserStore();
 
 const isLoadRegisterButton = ref<boolean>(false);
 const repeatPassword = ref<string>("");
@@ -49,18 +48,20 @@ const errors = ref({
                 password: [] as string[],
                 email: [] as string[]
             });
+
 const newUser = ref<NewUser>({
                 login: "",
                 email: "",
                 password: ""
             });
+
 const register = async () => {
     isLoadRegisterButton.value = true;
     setDefaultErrors();
 
     await userService.register(newUser.value)
         .then((response) => {
-            userStore.set(response.data.identityDetails);
+            authSrvice.addTokens(response.data.authDetails);
             router.push("/panel")
         })
         .catch((er: AxiosError<ParamHttpErrorBody<RegisterErrorMessages>>) => {

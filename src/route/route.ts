@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Layout from "../components/Layout.vue";
-import { useUserStore } from "../store/auth/user.store";
 import Auth from "../views/auth/Auth.vue";
 import Login from "../views/auth/Login.vue";
 import Register from "../views/auth/Register.vue";
+import authSrvice from "../services/auth/auth.srvice";
 
 const routes = [
     {
@@ -32,19 +32,17 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _from, next) => {
-    // if(to.meta.requiresAuth){
-    //     if(useUserStore().user === null){
-    //         next("/auth/login")
-    //     }
-    //     else{
-    //         next();
-    //     }
-    // }
-    // else{
-    //     next();
-    // }
-
-    next();
+    if(to.meta.requiresAuth){
+        if(authSrvice.getAccessToken() === null){
+            next("/auth/login")
+        }
+        else{
+            next();
+        }
+    }
+    else{
+        next();
+    }
 })
 
 export default router;
