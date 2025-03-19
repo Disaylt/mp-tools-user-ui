@@ -15,22 +15,25 @@ class MainCategoryService implements IMainCategoryService{
         return[
             {
                 name : "Маркетплейсы",
-                providers : [
+                modules : [
                     {
-                        id : 1,
                         name : "Агрегатор",
+                        type : "",
+                        path : "",
                         categoryView : "Маркетплейс",
                         component : markRaw(AggregateSideBar)
                     },
                     {
-                        id : 2,
                         name : "WB",
+                        type : "company",
+                        path : "wb_seller",
                         categoryView : "Маркетплейс",
                         component : markRaw(WbSideBar)
                     },
                     {
-                        id : 3,
                         name : "OZON",
+                        type : "",
+                        path : "",
                         categoryView : "Маркетплейс",
                         component : markRaw(OzonSideBar)
                     }
@@ -38,10 +41,11 @@ class MainCategoryService implements IMainCategoryService{
             },
             {
                 name : "Мессенджеры",
-                providers : [
+                modules : [
                     {
-                        id : 4,
                         name : "Telegram",
+                        type : "",
+                        path : "",
                         categoryView : "Мессенджер",
                         component : markRaw(TelegramSideBar)
                     }

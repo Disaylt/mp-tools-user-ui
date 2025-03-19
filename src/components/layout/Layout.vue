@@ -22,17 +22,19 @@
     <Drawer v-model:visible="sideBarStore.isShowDraw" header="Меню">
         <component :is="mainCategoryStore.selectedValue?.component"></component>
     </Drawer>
+    <ModulesModal></ModulesModal>
 </template>
 
 <script setup lang="ts">
-import { useMainCategoryStore } from '../store/layout/main-category.store';
-import { useSideBarStore } from '../store/layout/side-bar.store';
-import Header from './layout/Header.vue'
-import SideBar from './layout/SideBar.vue';
-import Footer from './layout/Footer.vue';
+import { useModulesStore } from '../../store/layout/modules.store';
+import { useSideBarStore } from '../../store/layout/side-bar.store';
+import Header from './Header.vue'
+import SideBar from './SideBar.vue';
+import Footer from './Footer.vue';
+import ModulesModal from '../panel/ModulesModal.vue';
 
 const sideBarStore = useSideBarStore();
-const mainCategoryStore = useMainCategoryStore();
+const mainCategoryStore = useModulesStore();
 
 </script>
 

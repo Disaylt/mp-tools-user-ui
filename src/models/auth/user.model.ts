@@ -30,8 +30,9 @@ export interface Login{
 
 export interface NewAuthDetails{
     refreshToken : string;
-    providerType : number | null;
-    providerId : number | null;
+    moduleType : string | null;
+    moduleId : number | null;
+    modulePath : string | null;
 }
 
 export interface AuthInfo{

@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { useMainCategoryStore } from '../../store/layout/main-category.store';
+import { useModulesStore } from '../../store/layout/modules.store';
 import type { PopoverMethods } from 'primevue';
 import { computed, ref } from 'vue';
 import { useSideBarStore } from '../../store/layout/side-bar.store';
@@ -74,7 +74,7 @@ import { useApplicationDarkModeStore } from '../../store/layout/application-dark
 import type { CategoryView } from '../../models/layout/category.model';
 
 const router = useRouter();
-const mainCategoryStore = useMainCategoryStore();
+const mainCategoryStore = useModulesStore();
 const sideBarStore = useSideBarStore();
 const applicationDarkModeStore = useApplicationDarkModeStore();
 

@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { useMainCategoryStore } from '../../store/layout/main-category.store';
+import { useModulesStore } from '../../store/layout/modules.store';
 
-const mainCategoryStore = useMainCategoryStore();
+const mainCategoryStore = useModulesStore();
 
 </script>
