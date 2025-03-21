@@ -9,9 +9,6 @@ const routes = [
     {
         path: '/panel', 
         component: Layout,
-        children: [
-
-        ],
         meta: {
             requiresAuth: true
         }

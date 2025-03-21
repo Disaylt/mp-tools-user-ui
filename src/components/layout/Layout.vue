@@ -3,8 +3,8 @@
         <Header></Header>
     </div>
     <div class="main flex flex-row flex-wrap">
-        <div v-if="sideBarStore.isShowStatic && mainCategoryStore.selectedValue !== null" 
-        class="side-bar hidden md:block overflow-auto main p-2 transition-opacity duration-300 ease-in">
+        <div v-if="sideBarStore.isShowStatic && mainCategoryStore.selectedType !== null" 
+        class="side-bar hidden md:block overflow-auto main p-2">
             <div class="border-round-xl">
                 <SideBar></SideBar>
             </div>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <Drawer v-model:visible="sideBarStore.isShowDraw" header="Меню">
-        <component :is="mainCategoryStore.selectedValue?.component"></component>
+        <component :is="mainCategoryStore.selectedType?.component" class="py-2"></component>
     </Drawer>
     <ModulesModal></ModulesModal>
 </template>

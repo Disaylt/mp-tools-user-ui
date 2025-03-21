@@ -1,5 +1,8 @@
 @import 'primeicons/primeicons.css';
 @import "tailwindcss";
 @import "tailwindcss-primeui";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
 @import "./assets/layout/layout.css";
 @custom-variant app-dark (&:where(.app-dark, .app-dark *));

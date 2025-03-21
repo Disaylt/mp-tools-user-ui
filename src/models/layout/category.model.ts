@@ -1,6 +1,6 @@
-import type { ModuleView } from "./module.model";
+import type { ModuleType } from "./module.model";
 
 export interface CategoryView{
     name : string;
-    modules : ModuleView[];
+    modules : ModuleType[];
 }

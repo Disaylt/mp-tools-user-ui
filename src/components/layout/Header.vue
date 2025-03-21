@@ -2,7 +2,7 @@
     <div class="header card-bg flex flex-row px-2 border-b-1 app-border">
         <div class="flex items-center gap-1" style="width: 230px;">
             <div class="flex-none">
-                <Button :disabled="mainCategoryStore.selectedValue === null" 
+                <Button :disabled="mainCategoryStore.selectedType === null" 
                 @click="sideBarStore.toggle()"
                 :icon="sideBarStore.isShowStatic ? 'pi pi-bars' : 'pi pi-ellipsis-v'"
                 aria-label="Filter" 
@@ -12,10 +12,10 @@
             </div>
             <div class="grow">
                 <FloatLabel variant="on">
-                    <Select v-model="mainCategoryStore.selectedValue" :options="categories" 
+                    <Select v-model="mainCategoryStore.selectedType" :options="categories" 
                     optionLabel="name" 
                     optionGroupLabel="name" 
-                    optionGroupChildren="providers" 
+                    optionGroupChildren="modules" 
                     class="w-full"
                     :overlay-style="{ 'max-width' : '100vw'}">
                         <template #optiongroup="slotProps">
@@ -24,7 +24,7 @@
                             </div>
                         </template>
                     </Select>
-                    <label for="on_label">{{ mainCategoryStore.selectedValue ? mainCategoryStore.selectedValue.categoryView : "Провайдеры" }}</label>
+                    <label for="on_label">{{ mainCategoryStore.selectedType ? mainCategoryStore.selectedType.categoryView : "Модули" }}</label>
                 </FloatLabel>
             </div>
         </div>
@@ -48,7 +48,7 @@
                 <Button rounded  @click="openMenu($event)" icon="pi pi-ellipsis-v" aria-label="Filter" variant="outlined"
                     severity="secondary" />
                 <Popover ref="smallMenu">
-                    <div class="flex flex-column gap-2">
+                    <div class="flex flex-col gap-2">
                         <Chip class="flex justify-content-center  overflow-hidden w-full">
                             <i class="pi pi-wallet" style="font-size: 1rem"></i>
                             <label class="overflow-hidden text-overflow-clip">{{ getMoneyAsCurrencyString }}</label>
@@ -69,7 +69,7 @@ import { useModulesStore } from '../../store/layout/modules.store';
 import type { PopoverMethods } from 'primevue';
 import { computed, ref } from 'vue';
 import { useSideBarStore } from '../../store/layout/side-bar.store';
-import mainCategoryService from '../../services/layout/category.service';
+import mainCategoryService from '../../services/layout/modules.service';
 import { useApplicationDarkModeStore } from '../../store/layout/application-dark-model.store';
 import type { CategoryView } from '../../models/layout/category.model';
 

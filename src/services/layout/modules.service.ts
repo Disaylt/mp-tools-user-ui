@@ -21,12 +21,14 @@ class MainCategoryService implements IMainCategoryService{
                         type : "",
                         path : "",
                         categoryView : "Маркетплейс",
+                        description :"Объедените компании на маркетплейсах в 1 единую компанию. Упрощает управление и расширяет статистику и аналитику.",
                         component : markRaw(AggregateSideBar)
                     },
                     {
                         name : "WB",
                         type : "company",
                         path : "wb_seller",
+                        description :"Используйте автоматизацию, статистику и аналитику для улучшения продаж на WB.",
                         categoryView : "Маркетплейс",
                         component : markRaw(WbSideBar)
                     },
@@ -34,6 +36,7 @@ class MainCategoryService implements IMainCategoryService{
                         name : "OZON",
                         type : "",
                         path : "",
+                        description :"Используйте автоматизацию, статистику и аналитику для улучшения продаж на OZON.",
                         categoryView : "Маркетплейс",
                         component : markRaw(OzonSideBar)
                     }
@@ -46,6 +49,7 @@ class MainCategoryService implements IMainCategoryService{
                         name : "Telegram",
                         type : "",
                         path : "",
+                        description :"Подписывайтесь на уведомления сервисов и селлерских компаний, а так же управлйяте инструментами и просматривайте отчеты в Telegram.",
                         categoryView : "Мессенджер",
                         component : markRaw(TelegramSideBar)
                     }
