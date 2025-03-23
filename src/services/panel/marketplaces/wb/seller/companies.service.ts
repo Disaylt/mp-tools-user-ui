@@ -2,6 +2,7 @@ import type { AxiosResponse } from "axios";
 import type { GroupView } from "../../../../../models/common/group.model";
 import type { ModuleView } from "../../../../../models/layout/module.model";
 import type { NewWbSellerCompanyModel, WbSellerCompanyModel } from "../../../../../models/panel/marketplaces/wb/seller/company.model";
+import apiService from "../../../../../core/api.service";
 
 interface IWbSellerCompanyService{
     getMenu() : Promise<AxiosResponse<GroupView<string, ModuleView>[]>>;
@@ -10,17 +11,8 @@ interface IWbSellerCompanyService{
 
 class WbSellerCompanyService implements IWbSellerCompanyService{
 
-    private static ids : number = 5;
-
     create(company: NewWbSellerCompanyModel): Promise<AxiosResponse<WbSellerCompanyModel>> {
-        return Promise.resolve({
-            data : {
-                id: WbSellerCompanyService.ids++,
-                name : company.name,
-                token : company.token,
-                description : company.description
-            }
-        } as AxiosResponse<WbSellerCompanyModel>)
+        return apiService.post<WbSellerCompanyModel>("/api/v1/wb/seller/companies", company);
     }
 
     async getMenu(): Promise<AxiosResponse<GroupView<string, ModuleView>[]>> {

@@ -24,7 +24,7 @@
                 :feedback="false" />
         </div>
         <div class="mt-2 gap-2 flex flex-col gap-1">
-            <Button :disabled="checkEqualsPasswrod" :loading="isLoadRegisterButton" @click="register()" class="w-full"
+            <Button :disabled="checkEqualsPasswrod || isLoadRegisterButton" :loading="isLoadRegisterButton" @click="register()" class="w-full"
                 label="Зарегистрироваться" raised />
         </div>
     </div>

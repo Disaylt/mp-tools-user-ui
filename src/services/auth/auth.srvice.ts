@@ -1,4 +1,5 @@
 import type { AuthDetails, NewAuthDetails } from "../../models/auth/user.model";
+import router from "../../route/route";
 import { useAuthStore } from "../../store/auth/auth.store";
 import userService from "./user.service";
 
@@ -7,15 +8,27 @@ interface IAuthService {
     addTokens(data : AuthDetails | null) : void;
     getRefreshToken( ) : string | null;
     getAccessToken( ) : string | null;
+    logout() : Promise<void>;
  }
 
 class AuthService implements IAuthService{
 
+    static accessTokenKey = "accessToken" as string;
+    static refreshTokenKey = "refreshToken" as string;
+
+    async logout() : Promise<void> {
+        await userService.logout()
+            .then((_) => {
+                useAuthStore().clear();
+                this.deleteTokenFromLocalStorage();
+                router.push("/auth/login")
+            })
+    }
 
     addTokens(data : AuthDetails | null){
         if(data){
-            localStorage.setItem("accessToken", data.authToken);
-            localStorage.setItem("refreshToken", data.sessionToken);
+            localStorage.setItem(AuthService.accessTokenKey, data.authToken);
+            localStorage.setItem(AuthService.refreshTokenKey, data.sessionToken);
 
             useAuthStore().clear();
         }
@@ -25,7 +38,7 @@ class AuthService implements IAuthService{
         const authStore = useAuthStore();
 
         if(!authStore.accessToken){
-            authStore.accessToken = localStorage.getItem("accessToken");
+            authStore.accessToken = localStorage.getItem(AuthService.accessTokenKey);
         }
 
         return authStore.accessToken;
@@ -35,7 +48,7 @@ class AuthService implements IAuthService{
         const authStore = useAuthStore();
 
         if(!authStore.refreshToken){
-            authStore.refreshToken = localStorage.getItem("refreshToken");
+            authStore.refreshToken = localStorage.getItem(AuthService.refreshTokenKey);
         }
 
         return authStore.refreshToken;
@@ -65,7 +78,7 @@ class AuthService implements IAuthService{
                 else{
 
                     useAuthStore().clear();
-                    localStorage.clear();
+                    this.deleteTokenFromLocalStorage();
 
                     throw new Error();
                 }
@@ -73,6 +86,11 @@ class AuthService implements IAuthService{
             .catch((error) => {
                 return Promise.reject(error);
             })
+    }
+
+    private deleteTokenFromLocalStorage(){
+        localStorage.removeItem(AuthService.accessTokenKey);
+        localStorage.removeItem(AuthService.refreshTokenKey);
     }
 }
 

@@ -9,7 +9,7 @@ interface INotificationsService{
 class NotificationsService implements INotificationsService{
 
     getRange(query: NotificationsQuery): Promise<AxiosResponse<Notification[]>> {
-        const path = `/api/identity/v1/users/details`
+        const path = `/api/v1/user-notifications/notifications`
         const queryValues = [`take=${query.take}`, `skip=${query.skip}`] as string[];
 
         if(query.isRead){

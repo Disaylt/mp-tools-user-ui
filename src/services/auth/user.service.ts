@@ -12,19 +12,19 @@ interface IUserServcie{
 
 class UserServcie implements IUserServcie{
     refresh(data: NewAuthDetails): Promise<AxiosResponse<AuthInfo>> {
-        return apiService.post<AuthInfo>("/api/auth/v1/tokens/refresh", data);
+        return apiService.post<AuthInfo>("/api/v1/auth/tokens/refresh", data);
     }
     logout(): Promise<AxiosResponse> {
-        return apiService.put("/api/auth/v1/users/logout")
+        return apiService.put("/api/v1/auth/users/logout")
     }
     login(data : Login): Promise<AxiosResponse<AuthResult>> {
-        return apiService.post<AuthResult>("/api/auth/v1/users/login", data);
+        return apiService.post<AuthResult>("/api/v1/auth/users/login", data);
     }
     register(newUser : NewUser): Promise<AxiosResponse<AuthResult>> {
-        return apiService.post<AuthResult>("/api/auth/v1/users/register", newUser);
+        return apiService.post<AuthResult>("/api/v1/auth/users/register", newUser);
     }
     getInfo(): Promise<AxiosResponse<IdentityDetails>>{
-        return apiService.get<IdentityDetails>("/api/identity/v1/users/details");
+        return apiService.get<IdentityDetails>("/api/v1/identity/users/details");
     }
 
 }

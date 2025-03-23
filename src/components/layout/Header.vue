@@ -39,23 +39,30 @@
                     <Button rounded @click="applicationDarkModeStore.toggle()" :icon="applicationDarkModeStore.isDark ? 'pi pi-moon' : 'pi pi-sun'"
                         aria-label="Filter" variant="outlined" severity="secondary" />
                     <Button icon="pi pi-bell" aria-label="Filter" rounded  variant="outlined" severity="secondary" />
-                    <Button @click="pushToProfile()" icon="pi pi-user" rounded  aria-label="Filter" variant="outlined" severity="secondary" />
+                    <Button @click="profileMenu?.toggle($event)" icon="pi pi-user" rounded  aria-label="Filter" variant="outlined" severity="secondary" />
                 </div>
             </div>
             <div class="flex flex-row gap-1 block md:hidden">
                 <Button @click="applicationDarkModeStore.toggle()"  rounded :icon="applicationDarkModeStore.isDark ? 'pi pi-moon' : 'pi pi-sun'"
-                aria-label="Filter" variant="outlined" severity="secondary" />
-                <Button rounded  @click="openMenu($event)" icon="pi pi-ellipsis-v" aria-label="Filter" variant="outlined"
+                    aria-label="Filter" variant="outlined" severity="secondary" />
+                <Button rounded  @click="smallMenu?.toggle($event)" icon="pi pi-ellipsis-v" aria-label="Filter" variant="outlined"
                     severity="secondary" />
                 <Popover ref="smallMenu">
                     <div class="flex flex-col gap-2">
-                        <Chip class="flex justify-content-center  overflow-hidden w-full">
+                        <Chip size="small" class="flex justify-content-center  overflow-hidden w-full">
                             <i class="pi pi-wallet" style="font-size: 1rem"></i>
                             <label class="overflow-hidden text-overflow-clip">{{ getMoneyAsCurrencyString }}</label>
                             <label>р.</label>
                         </Chip>
-                        <Button type="button" label="Уведомления" icon="pi pi-bell" badge="99+"  />
-                        <Button @click="pushToProfile()" type="button" label="Профиль" icon="pi pi-user" />
+                        <Button size="small" type="button" label="Уведомления" icon="pi pi-bell" badge="99+"  />
+                        <Button size="small" @click="pushToProfile()" type="button" label="Профиль" icon="pi pi-user" />
+                        <Button class="mt-2" @click="logout()" size="small" type="button" label="Выйти" icon="pi pi-sign-out" />
+                    </div>
+                </Popover>
+                <Popover ref="profileMenu">
+                    <div class="flex flex-col gap-2">
+                        <Button size="small" @click="pushToProfile()" type="button" label="Профиль" icon="pi pi-user" />
+                        <Button class="mt-2" @click="logout()" size="small" type="button" label="Выйти" icon="pi pi-sign-out" />
                     </div>
                 </Popover>
             </div>
@@ -72,6 +79,7 @@ import { useSideBarStore } from '../../store/layout/side-bar.store';
 import mainCategoryService from '../../services/layout/modules.service';
 import { useApplicationDarkModeStore } from '../../store/layout/application-dark-model.store';
 import type { CategoryView } from '../../models/layout/category.model';
+import authSrvice from '../../services/auth/auth.srvice';
 
 const router = useRouter();
 const mainCategoryStore = useModulesStore();
@@ -79,17 +87,23 @@ const sideBarStore = useSideBarStore();
 const applicationDarkModeStore = useApplicationDarkModeStore();
 
 const smallMenu = ref<PopoverMethods | null>(null);
+const profileMenu = ref<PopoverMethods | null>(null);
 const categories = ref<CategoryView[]>(mainCategoryService.getCategories());
 const money = ref<number>(0);
+const isLoadLogoutButton = ref<boolean>(false);
 
 const getMoneyAsCurrencyString  = computed(() => {
   return money.value.toLocaleString('ru');
 })
 
+const logout = ()=> {
+    isLoadLogoutButton.value = true;
 
-const openMenu = (event: Event) => {
-  smallMenu.value?.toggle(event);
-};
+    authSrvice.logout()
+        .finally(() => {
+            isLoadLogoutButton.value = false;
+        })
+}
 
 const pushToProfile = () => {
   router.push('/panel/profile');
